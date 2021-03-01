@@ -1,4 +1,4 @@
-# rms-application-service
+# rms-assignment-service
 
 The rms api provides a backend to the rms ui. 
 

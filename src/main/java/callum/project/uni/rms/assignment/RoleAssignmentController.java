@@ -21,10 +21,10 @@ class RoleAssignmentController {
 
     @PostMapping(value = "/role/assignment")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postNewAssignment(@RequestBody @NonNull AssignmentCreateReq req) {
+    public TargetAssignment postNewAssignment(@RequestBody @NonNull AssignmentCreateReq req) {
         
         log.debug("Adding a new assignment for the role and user");
-        assignmentService.addNewAssignment(req);
+        return assignmentService.addNewAssignment(req);
     }
 
 

@@ -81,7 +81,7 @@ class RoleAssignmentControllerTest {
         this.mvc.perform(
                 post("/role/assignment/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"userId\": 2, \"roleId\": 1, \"startDate\": \"2021-03-01\", \"endDate\": \"2021-03-01\"}"))
+                        .content("{\"userId\": 2, \"roleId\": 1, \"startDate\": \""+TARGET_ROLE_START_DATE+"\", \"endDate\": \""+TARGET_ROLE_END_DATE+"\"}"))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
     }
@@ -90,10 +90,11 @@ class RoleAssignmentControllerTest {
     void postNewAssignment_happyPath() throws Exception {
 
         AssignmentCreateReq ass = buildAssignmentCreateReq();
+        when(service.addNewAssignment(eq(ass))).thenReturn(buildTargetAssignment());
 
         this.mvc.perform(post("/role/assignment/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"userId\": 2, \"roleId\": 1, \"startDate\": \"2021-03-01\", \"endDate\": \"2021-03-01\"}"))
+                .content("{\"userId\": 2, \"roleId\": 1, \"startDate\": \""+TARGET_ROLE_START_DATE+"\", \"endDate\": \""+TARGET_ROLE_END_DATE+"\"}"))
                 .andDo(print())
                 .andExpect(status().isCreated());
 

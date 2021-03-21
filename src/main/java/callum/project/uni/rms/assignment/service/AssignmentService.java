@@ -29,11 +29,11 @@ public class AssignmentService {
     private final AssignmentRepository assignmentRepository;
     private final AssignmentMapper assignmentMapper;
 
-    public void addNewAssignment(AssignmentCreateReq req) {
+    public TargetAssignment addNewAssignment(AssignmentCreateReq req) {
         try {
             Assignment assignment = assignmentMapper.mapRequestToSource(req);
 
-            assignmentRepository.save(assignment);
+            return assignmentMapper.mapSourceToTarget(assignmentRepository.save(assignment));
         } catch (HibernateException e) {
             throw new InternalServiceException("Issue adding new role", e);
         }

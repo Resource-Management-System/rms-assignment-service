@@ -72,8 +72,14 @@ class AssignmentServiceTest {
 
         AssignmentCreateReq assignmentCreateReq = buildAssignmentCreateReq();
         Assignment assignment = buildSourceAssignment();
-        assignmentService.addNewAssignment(assignmentCreateReq);
+        when(assignmentRepository.save(eq(assignment))).thenReturn(assignment);
 
+
+        TargetAssignment res = assignmentService.addNewAssignment(assignmentCreateReq);
+        assertEquals(ROLE_ID, res.getRoleId());
+        assertEquals(TARGET_ROLE_START_DATE, res.getStartDate());
+        assertEquals(TARGET_ROLE_END_DATE, res.getEndDate());
+        assertEquals(USER_ID, res.getUserId());
         verify(assignmentRepository, times(1)).save(eq(assignment));
     }
 
